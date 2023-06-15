@@ -256,11 +256,12 @@ DLL_EXPORT bool magic_match(std::istream& f) {
     switch((enum llama_ftype) ftype) {
         // currently supported on Metal https://github.com/ggerganov/llama.cpp/blob/ae9663f1887513e152839e91f61c513075a19422/ggml-metal.m#L51-L55
         case LLAMA_FTYPE_MOSTLY_F16:
-        case LLAMA_FTYPE_MOSTLY_Q2_K:
-        case LLAMA_FTYPE_MOSTLY_Q4_0:
-        case LLAMA_FTYPE_MOSTLY_Q6_K:
-        case LLAMA_FTYPE_MOSTLY_Q4_K_S:
-        case LLAMA_FTYPE_MOSTLY_Q4_K_M:
+        // K-quants are currently broken upstream for large context sizes, see https://github.com/nomic-ai/gpt4all/pull/988
+        // case LLAMA_FTYPE_MOSTLY_Q2_K:
+        // case LLAMA_FTYPE_MOSTLY_Q4_0:
+        // case LLAMA_FTYPE_MOSTLY_Q6_K:
+        // case LLAMA_FTYPE_MOSTLY_Q4_K_S:
+        // case LLAMA_FTYPE_MOSTLY_Q4_K_M:
             return true;
         default: // unsupported quant-type for Metal
             return false;
